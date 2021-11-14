@@ -123,28 +123,24 @@ class RandomCircuitGenerator:
         qc.measure(self.qubits, self.qubits)
         backend = BasicAer.get_backend('qasm_simulator')
         job = execute(qc, backend)
-        plot_histogram(job.result().get_counts(), color='midnightblue', title="Execution Histogram")
-        plt.show()
+        return plot_histogram(job.result().get_counts(), color='midnightblue', title="Execution Histogram")
 
     def bloch_sphere(self):
         qc = self.qc.copy()
         state = Statevector.from_instruction(qc)
-        plot_bloch_multivector(state, title="Bloch Sphere", reverse_bits=False)
-        plt.show()
+        return plot_bloch_multivector(state, title="Bloch Sphere", reverse_bits=False)
 
     def q_sphere(self):
         qc = self.qc.copy()
         state = Statevector.from_instruction(qc)
-        plot_state_qsphere(state)
-        plt.show()
+        return plot_state_qsphere(state)
 
     def state_city(self):
         qc = self.qc.copy()
         backend = BasicAer.get_backend('statevector_simulator')
         result = backend.run(transpile(qc, backend)).result()
         psi = result.get_statevector(qc)
-        plot_state_city(psi)
-        plt.show()
+        return plot_state_city(psi)
 
     def add_circuit_guess(self, circuit_guess):
         qc = self.qc.copy()
